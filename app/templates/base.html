@@ -5,6 +5,23 @@
 <title>Welcome to Microblog</title>
 {%endif%}
 <body>
+<div>Microblog:
+	<a href="{{ url_for('index') }}">Home</a>
+	{% if g.user.is_authenticated() %}
+	| <a href="{{ url_for('user',nickname=g.user.nickname)}}">Your Profile</a>
+	| <a href="{{ url_for('logout')}}">Logout</a>
+	{% endif %}
+<hr>
+{% with messages= get_flashed_messages() %}
+	{% if messages %}
+	<ul>
+		{% for message in messages %}
+		<li>{% print(message) %}</li>
+		{% endfor %}
+	{% endif %}
+	</ul>
+{% endwith %}
+</hr>
 {% block content %}
 {% endblock %}
 </body>

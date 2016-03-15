@@ -5,7 +5,7 @@ class User(db.Model):
 	nickname=db.Column(db.String(64),index=True,unique=True)
 	email=db.Column(db.String(120),index=True,unique=True)
 	posts=db.relationship('Post',backref='author',lazy='dynamic')
-	
+		
 	@property
 	def is_authenticated(self):
 		return True;
@@ -27,6 +27,9 @@ class User(db.Model):
 	def __repr__(self):
 		return '<User %r>' % (self.nickname)
 
+	def __init__(self,username,email):
+		self.nickname=username
+		self.email=email
 
 class Post(db.Model):
 	id=db.Column(db.Integer,primary_key=True)
